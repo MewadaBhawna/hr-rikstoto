@@ -1,1 +1,41 @@
-<p>employee-list works!</p>
+<div class="sidebar" role="navigation" aria-label="Employee list">
+  <h2 id="employeeListHeading" class="sidebar-title">
+    Employees
+    <span class="employee-count" aria-label="Employee count">{{
+      (employees$ | async)?.length
+    }}</span>
+  </h2>
+  @if(employees$){
+  <ul
+    class="employee-list"
+    role="listbox"
+    aria-labelledby="employeeListHeading"
+    [attr.aria-busy]="loading"
+    [class.loading]="loading"
+  >
+    @for (emp of employees$ | async; track $index;) {
+    <li>
+      <div class="employee-item">
+        <img
+          [src]="emp.picture.thumbnail"
+          [alt]="''"
+          class="employee-avatar"
+          width="48"
+          height="48"
+          loading="lazy"
+          aria-hidden="true"
+        />
+        <div class="employee-details">
+          <span class="employee-name"
+            >{{ emp.name.first }} {{ emp.name.last }}</span
+          >
+          <span class="employee-email">{{ emp.email }}</span>
+        </div>
+      </div>
+    </li>
+    }
+  </ul>
+  } @else {
+  <div aria-live="polite">Loading employees data</div>
+  }
+</div>
