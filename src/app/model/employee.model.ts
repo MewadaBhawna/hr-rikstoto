@@ -1,6 +1,5 @@
 export interface Employee {
   id: Id;
-  gender: string;
   name: Name;
   email: string;
   location: Location;
@@ -9,6 +8,7 @@ export interface Employee {
   phone: string;
   cell: string;
   picture: Picture;
+  isFlagged: boolean;
 }
 
 export interface Id {

@@ -2,19 +2,21 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Employee } from '../model/employee.model';
-import { catchError, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
+  private selectedEmployeeSubject = new BehaviorSubject<Employee | null>(null);
+  selectedEmployee$ = this.selectedEmployeeSubject.asObservable();
   constructor(private http: HttpClient) {}
 
   getEmployeeList(): Observable<Employee[]> {
     return this.http.get<{ results: any }>(environment.apiUrl).pipe(
       map((data) => {
         const employees = data.results.map((user: any) => ({
-          id: user.login.uuid,
+          id: user.id.value,
           name: user.name,
           email: user.email,
           phone: user.phone,
@@ -34,5 +36,9 @@ export class EmployeeService {
         return of([]);
       })
     );
+  }
+
+  selectEmployee(employee: Employee): void {
+    this.selectedEmployeeSubject.next(employee);
   }
 }

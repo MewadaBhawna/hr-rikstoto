@@ -24,4 +24,11 @@ export class EmployeeListComponent implements OnInit {
       error: () => (this.loading = false),
     });
   }
+  /**
+   *update selectEmployee subject
+   * @param employee : selected employee from sidebar
+   */
+  selectEmployee(employee: Employee): void {
+    this.employeeService.selectEmployee(employee);
+  }
 }

@@ -1,1 +1,122 @@
-<p>employee-details works!</p>
+@if(employee){
+<div
+  class="employee-detail-container"
+  role="main"
+  aria-labelledby="employee-detail-heading"
+>
+  <div
+    class="employee-header"
+    role="region"
+    aria-label="Employee profile header"
+  >
+    <img
+      [src]="employee.picture.large"
+      [alt]="
+        employee.name.first + ' ' + employee.name.last + ' profile picture'
+      "
+      class="employee-avatar"
+      width="128"
+      height="128"
+    />
+    <div class="employee-header-info">
+      <h1 id="employee-detail-heading" class="employee-name">
+        {{ employee.name.title }} {{ employee.name.first }}
+        {{ employee.name.last }}
+      </h1>
+      <div class="employee-meta">
+        <span class="employee-id" aria-label="Employee ID"
+          >ID: {{ employee.id }}</span
+        >
+        <p class="employee-position">Software Engineer</p>
+        <button
+          class="flag-button"
+          [attr.aria-pressed]="employee.isFlagged"
+          [class.unflag]="employee.isFlagged"
+          [attr.aria-label]="
+            employee.isFlagged ? 'Unflag employee' : 'Flag employee'
+          "
+          [attr.aria-pressed]="employee.isFlagged"
+        >
+          {{ employee.isFlagged ? "Unflag Employee" : "Flag Employee" }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="employee-info-section"
+    role="region"
+    aria-labelledby="contact-info-heading"
+  >
+    <h2 id="contact-info-heading">Contact Information</h2>
+    <div class="employee-info-grid">
+      <div class="info-item">
+        <span class="info-label" id="email-label">Email</span>
+        <a
+          [href]="'mailto:' + employee.email"
+          class="info-value"
+          aria-labelledby="email-label"
+          >{{ employee.email }}</a
+        >
+      </div>
+      <div class="info-item">
+        <span class="info-label" id="phone-label">Phone</span>
+        <a
+          [href]="'tel:' + employee.phone"
+          class="info-value"
+          aria-labelledby="phone-label"
+          >{{ employee.phone }}</a
+        >
+      </div>
+      <div class="info-item">
+        <span class="info-label" id="cell-label">Cell</span>
+        <a
+          [href]="'tel:' + employee.cell"
+          class="info-value"
+          aria-labelledby="cell-label"
+          >{{ employee.cell }}</a
+        >
+      </div>
+    </div>
+  </div>
+  <div
+    class="employee-info-section"
+    role="region"
+    aria-labelledby="personal-info-heading"
+  >
+    <h2 id="personal-info-heading">Personal Information</h2>
+    <div class="employee-info-grid">
+      <div class="info-item">
+        <span class="info-label" id="dob-label">Date of Birth</span>
+        <span class="info-value" aria-labelledby="dob-label"
+          >{{ employee.dob.date | date }} ({{ employee.dob.age }} years)</span
+        >
+      </div>
+      <div class="info-item">
+        <span class="info-label" id="address-label">Address</span>
+        <span class="info-value" aria-labelledby="address-label">
+          {{ employee.location.street.number }}
+          {{ employee.location.street.name }},<br />
+          {{ employee.location.city }}, {{ employee.location.state }}
+          {{ employee.location.postcode }}<br />
+          {{ employee.location.country }}
+        </span>
+      </div>
+      <div class="info-item">
+        <span class="info-label" id="years-service-label"
+          >Years of Service</span
+        >
+        <span class="info-value" aria-labelledby="years-service-label"
+          >{{ employee.registered.age }} years</span
+        >
+      </div>
+    </div>
+  </div>
+</div>
+}@else{
+<div class="no-employee-selected" role="alert" aria-live="polite">
+  <p>
+    No employee selected. Please select an employee from the list to view their
+    details.
+  </p>
+</div>
+}

@@ -14,7 +14,13 @@
     [class.loading]="loading"
   >
     @for (emp of employees$ | async; track $index;) {
-    <li>
+    <li
+      [attr.data-index]="$index"
+      [attr.data-index]="$index"
+      tabindex="0"
+      role="option"
+      (click)="selectEmployee(emp)"
+    >
       <div class="employee-item">
         <img
           [src]="emp.picture.thumbnail"
