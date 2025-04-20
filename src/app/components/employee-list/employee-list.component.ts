@@ -15,6 +15,8 @@ export class EmployeeListComponent implements OnInit {
   employees$!: Observable<Employee[]>;
   employeeService = inject(EmployeeService);
   loading: boolean = true;
+  selectedEmployee: Employee | null = null;
+  employees: Employee[] = [];
 
   ngOnInit(): void {
     this.loading = true;
@@ -23,6 +25,11 @@ export class EmployeeListComponent implements OnInit {
       next: () => (this.loading = false),
       error: () => (this.loading = false),
     });
+    this.employeeService.selectedEmployee$.subscribe((employee) => {
+      this.selectedEmployee = employee;
+    });
+
+    this.employees$ = this.employeeService.employees$;
   }
   /**
    *update selectEmployee subject

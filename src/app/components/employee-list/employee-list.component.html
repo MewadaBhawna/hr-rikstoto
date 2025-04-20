@@ -15,11 +15,13 @@
   >
     @for (emp of employees$ | async; track $index;) {
     <li
-      [attr.data-index]="$index"
+      [class.selected]="selectedEmployee?.id === emp.id"
+      [class.flagged]="emp.isFlagged"
       [attr.data-index]="$index"
       tabindex="0"
       role="option"
       (click)="selectEmployee(emp)"
+      [attr.aria-selected]="selectedEmployee?.id === emp.id"
     >
       <div class="employee-item">
         <img

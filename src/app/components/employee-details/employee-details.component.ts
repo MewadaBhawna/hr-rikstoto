@@ -19,4 +19,13 @@ export class EmployeeDetailsComponent {
       this.employee = employee;
     });
   }
+  toggleFlag() {
+    if (!this.employee) return;
+
+    if (this.employee.isFlagged) {
+      this.employeeService.unflagEmployee(this.employee);
+    } else {
+      this.employeeService.flagEmployee(this.employee);
+    }
+  }
 }

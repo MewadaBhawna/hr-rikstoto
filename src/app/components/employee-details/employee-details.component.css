@@ -48,7 +48,7 @@
   min-width: 0;
 }
 .employee-name {
-  margin: 0 0 8px 0;
+  margin: 0;
   font-size: 32px;
   font-weight: 700;
   color: #1e293b;
@@ -58,7 +58,6 @@
 .employee-meta {
   display: flex;
   gap: 16px;
-  margin-bottom: 16px;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -91,16 +90,6 @@
   padding: 0.3rem 16px;
   background-color: #f1f5f9;
   border-radius: 50px;
-
-  &::before {
-    content: "";
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background-color: #008484;
-    border-radius: 50%;
-    margin-right: 8px;
-  }
 }
 
 .employee-info-section {
@@ -172,21 +161,6 @@
   text-decoration: none;
   font-weight: 500;
   word-break: break-word;
-
-  &:hover {
-    text-decoration: underline;
-    color: #008484;
-  }
-
-  &:focus {
-    outline: 2px solid #008484;
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
-
-  &:focus:not(:focus-visible) {
-    outline: none;
-  }
 }
 .flag-button {
   padding: 0.75rem 1.25rem;
@@ -198,16 +172,11 @@
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease,
     box-shadow 0.2s ease;
-  margin-top: 16px;
   display: inline-flex;
   align-items: center;
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+  margin-top: 4px;
 
-  &::before {
-    content: "🚩";
-    margin-right: 8px;
-    font-size: 17.6px;
-  }
   &:hover {
     background-color: #dc2626;
     transform: translateY(-2px);
@@ -217,10 +186,6 @@
     background-color: #64748b;
     box-shadow: 0 4px 12px rgba(100, 116, 139, 0.2);
 
-    &::before {
-      content: "✓";
-    }
-
     &:hover {
       background-color: #475569;
       box-shadow: 0 6px 16px rgba(100, 116, 139, 0.25);
@@ -229,6 +194,28 @@
     &:focus {
       outline-color: #64748b;
     }
+  }
+}
+.employee-status {
+  font-size: 13.6px;
+  padding: 6px 13.6px;
+  border-radius: 50px;
+  background-color: #10b981;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.6px;
+
+  &::before {
+    content: "●";
+    font-size: 12px;
+  }
+
+  &.flagged {
+    background-color: #ef4444;
   }
 }
 

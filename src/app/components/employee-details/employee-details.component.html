@@ -15,8 +15,8 @@
         employee.name.first + ' ' + employee.name.last + ' profile picture'
       "
       class="employee-avatar"
-      width="128"
-      height="128"
+      width="140"
+      height="140"
     />
     <div class="employee-header-info">
       <h1 id="employee-detail-heading" class="employee-name">
@@ -24,22 +24,33 @@
         {{ employee.name.last }}
       </h1>
       <div class="employee-meta">
+        <p class="employee-position">Software Engineer</p>
         <span class="employee-id" aria-label="Employee ID"
           >ID: {{ employee.id }}</span
         >
-        <p class="employee-position">Software Engineer</p>
-        <button
-          class="flag-button"
-          [attr.aria-pressed]="employee.isFlagged"
-          [class.unflag]="employee.isFlagged"
+        <span
+          class="employee-status"
+          [class.flagged]="employee.isFlagged"
           [attr.aria-label]="
-            employee.isFlagged ? 'Unflag employee' : 'Flag employee'
+            employee.isFlagged
+              ? 'Flagged employee status'
+              : 'Active employee status'
           "
-          [attr.aria-pressed]="employee.isFlagged"
         >
-          {{ employee.isFlagged ? "Unflag Employee" : "Flag Employee" }}
-        </button>
+          {{ employee.isFlagged ? "Flagged" : "Active" }}
+        </span>
       </div>
+
+      <button
+        (click)="toggleFlag()"
+        class="flag-button"
+        [attr.aria-pressed]="employee.isFlagged"
+        [class.unflag]="employee.isFlagged"
+        [attr.aria-label]="employee.isFlagged ? 'Unflag' : 'Flag'"
+        [attr.aria-pressed]="employee.isFlagged"
+      >
+        {{ employee.isFlagged ? "Unflag" : "Flag" }}
+      </button>
     </div>
   </div>
   <div

@@ -10,6 +10,10 @@ import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 export class EmployeeService {
   private selectedEmployeeSubject = new BehaviorSubject<Employee | null>(null);
   selectedEmployee$ = this.selectedEmployeeSubject.asObservable();
+
+  private employeesSubject = new BehaviorSubject<Employee[]>([]);
+  employees$ = this.employeesSubject.asObservable();
+
   constructor(private http: HttpClient) {}
 
   getEmployeeList(): Observable<Employee[]> {
@@ -29,6 +33,7 @@ export class EmployeeService {
           isFlagged: false,
         }));
 
+        this.employeesSubject.next(employees);
         return employees;
       }),
       catchError((error) => {
@@ -40,5 +45,35 @@ export class EmployeeService {
 
   selectEmployee(employee: Employee): void {
     this.selectedEmployeeSubject.next(employee);
+  }
+
+  flagEmployee(employee: Employee): void {
+    const employees = this.employeesSubject.value;
+    const index = employees.findIndex((e) => e.id === employee.id);
+
+    if (index !== -1) {
+      const updatedEmployees = [...employees];
+      updatedEmployees[index] = {
+        ...updatedEmployees[index],
+        isFlagged: true,
+      };
+      this.employeesSubject.next(updatedEmployees);
+      this.selectedEmployeeSubject.next(updatedEmployees[index]);
+    }
+  }
+
+  unflagEmployee(employee: Employee): void {
+    const employees = this.employeesSubject.value;
+    const index = employees.findIndex((e) => e.id === employee.id);
+    if (index !== -1) {
+      const updatedEmployees = [...employees];
+      updatedEmployees[index] = {
+        ...updatedEmployees[index],
+        isFlagged: false,
+      };
+
+      this.employeesSubject.next(updatedEmployees);
+      this.selectedEmployeeSubject.next(updatedEmployees[index]);
+    }
   }
 }

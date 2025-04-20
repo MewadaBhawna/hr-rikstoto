@@ -95,7 +95,7 @@
 
 .main-content {
   flex: 1;
-  overflow-y: hidden;
+  overflow-y: auto;
   overflow-x: hidden; /* Prevent horizontal scrolling */
   background-color: #f8fafc;
   padding: 32px;
