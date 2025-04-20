@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Employee } from '../model/employee.model';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
+import { EmailService } from './email.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class EmployeeService {
   private employeesSubject = new BehaviorSubject<Employee[]>([]);
   employees$ = this.employeesSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private email: EmailService) {}
 
   getEmployeeList(): Observable<Employee[]> {
     return this.http.get<{ results: any }>(environment.apiUrl).pipe(
@@ -60,6 +61,10 @@ export class EmployeeService {
       this.employeesSubject.next(updatedEmployees);
       this.selectedEmployeeSubject.next(updatedEmployees[index]);
     }
+
+    this.email.sendEmail(employee).subscribe({
+      error: (err) => console.error('Failed to send flag notification:', err),
+    });
   }
 
   unflagEmployee(employee: Employee): void {
