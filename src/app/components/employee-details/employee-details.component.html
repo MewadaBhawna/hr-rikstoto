@@ -46,8 +46,11 @@
         class="flag-button"
         [attr.aria-pressed]="employee.isFlagged"
         [class.unflag]="employee.isFlagged"
-        [attr.aria-label]="employee.isFlagged ? 'Unflag' : 'Flag'"
+        [attr.aria-label]="
+          employee.isFlagged ? 'Unflag employee' : 'Flag employee'
+        "
         [attr.aria-pressed]="employee.isFlagged"
+        tabindex="0"
       >
         {{ employee.isFlagged ? "Unflag" : "Flag" }}
       </button>

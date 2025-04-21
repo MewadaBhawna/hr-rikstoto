@@ -22,6 +22,8 @@
       role="option"
       (click)="selectEmployee(emp)"
       [attr.aria-selected]="selectedEmployee?.id === emp.id"
+      (keydown.enter)="selectEmployee(emp)"
+      (keydown.space)="selectEmployee(emp); $event.preventDefault()"
     >
       <div class="employee-item">
         <img
