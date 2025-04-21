@@ -17,6 +17,12 @@ export class EmployeeService {
 
   constructor(private http: HttpClient, private email: EmailService) {}
 
+  /**
+   * Fetches the list of employees,
+   * tranformes the response in employee interface,
+   * store value in employeesSubject for sharing
+   * @returns
+   */
   getEmployeeList(): Observable<Employee[]> {
     return this.http.get<{ results: any }>(environment.apiUrl).pipe(
       map((data) => {
@@ -43,11 +49,19 @@ export class EmployeeService {
       })
     );
   }
-
+  /**
+   * Keep track of selected employee from the employee list
+   * @param employee
+   */
   selectEmployee(employee: Employee): void {
     this.selectedEmployeeSubject.next(employee);
   }
 
+  /**
+   * Unflags the specified employee by updating their `isFlagged` property to true.
+   * send mail using service
+   * @param employee
+   */
   flagEmployee(employee: Employee): void {
     const employees = this.employeesSubject.value;
     const index = employees.findIndex((e) => e.id === employee.id);
@@ -67,6 +81,10 @@ export class EmployeeService {
     });
   }
 
+  /**
+   * Unflags the specified employee by updating their `isFlagged` property to false.
+   * @param employee
+   */
   unflagEmployee(employee: Employee): void {
     const employees = this.employeesSubject.value;
     const index = employees.findIndex((e) => e.id === employee.id);

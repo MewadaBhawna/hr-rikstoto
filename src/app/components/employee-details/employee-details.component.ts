@@ -15,11 +15,18 @@ export class EmployeeDetailsComponent {
   employeeService = inject(EmployeeService);
 
   ngOnInit(): void {
+    //on load selectEmployee value update
     this.employeeService.selectedEmployee$.subscribe((employee) => {
       this.employee = employee;
     });
   }
-  toggleFlag() {
+  /**
+   * Toggles the flagged state of an employee
+   * if flagged calls service to unflag
+   * else flags the employee using service
+   * @returns
+   */
+  toggleFlag(): void {
     if (!this.employee) return;
 
     if (this.employee.isFlagged) {

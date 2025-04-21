@@ -20,11 +20,13 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
+    //subscribed using async pipe
     this.employees$ = this.employeeService.getEmployeeList();
     this.employees$.subscribe({
       next: () => (this.loading = false),
       error: () => (this.loading = false),
     });
+
     this.employeeService.selectedEmployee$.subscribe((employee) => {
       this.selectedEmployee = employee;
     });
@@ -32,8 +34,8 @@ export class EmployeeListComponent implements OnInit {
     this.employees$ = this.employeeService.employees$;
   }
   /**
-   *update selectEmployee subject
-   * @param employee : selected employee from sidebar
+   * keep select employee track
+   * @param employee
    */
   selectEmployee(employee: Employee): void {
     this.employeeService.selectEmployee(employee);
