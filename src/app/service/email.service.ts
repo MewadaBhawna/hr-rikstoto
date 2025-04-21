@@ -12,7 +12,6 @@ export class EmailService {
   constructor(private http: HttpClient) {}
 
   sendEmail(employee: Employee): Observable<void> {
-    debugger;
     const payload: EmailPayload = {
       to: 'hr@example.com',
       from: 'hrDashboard@example.com',
