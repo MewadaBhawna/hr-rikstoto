@@ -11,7 +11,7 @@ Angular CLI version 17.3.16
 ## Installation
 
 Clone the repository
-git clone https://your-repository-url.git
+git clone https://github.com/MewadaBhawna/hr-rikstoto
 cd hr-rikstoto
 
 Install dependencies
